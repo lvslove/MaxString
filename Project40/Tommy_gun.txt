@@ -1,0 +1,20 @@
+4
+aa
+oa
+ao
+oo
+2
+x y
+8
+aa y oa
+aa x ao
+ao y oo
+ao x aa
+oa y aa
+oa x oo
+oo y ao
+oo x oa
+1
+aa
+1
+aa
