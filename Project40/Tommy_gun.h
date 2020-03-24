@@ -2,8 +2,6 @@
 #pragma once
 #pragma once
 #include <vector>
-#include <set>
-#include <map>
 #include <iostream>
 #include <string>
 
@@ -13,16 +11,16 @@ class Tommy_gun
 {
 
 private:
-	set <char> alphabeth;
+	vector <char> alphabeth;
 	pair <bool, int> resm;
-	set <string> States;
-	set <string> CurrentState, S, F;
+	vector <string> States;
+	vector <string> CurrentState, S, F;
 	vector<string> str_in, str_out;
 	vector<char> str_x;
 
 
 public:
-	Tommy_gun(set <string> s, set <char> a, vector<string> str_1, vector<char> str_2, vector<string> str_3, set <string> ins, set <string> outs)
+	Tommy_gun(vector <string> s, vector <char> a, vector<string> str_1, vector<char> str_2, vector<string> str_3, vector <string> ins, vector <string> outs)
 	{
 		States = s; //количество состояний
 		alphabeth = a; //алфавит
@@ -42,14 +40,14 @@ public:
 		resm.first = false;
 		resm.second = 0;
 		CurrentState = S;
-		set <char>::iterator it;
+		vector <char>::iterator it;
 		if (str.length() == 0 && final(CurrentState)) //если стартовое состояние - заключительное
 			resm.first = true;
 		else {
 			string new_str = "";
 			for (int i = k; i < str.length(); i++) //проход по строке
 			{
-				it = alphabeth.find(str[i]); //проверка совпадения текущего символа с алфавитом
+				it = find(alphabeth.begin(), alphabeth.end(), str[i]); //проверка совпадения текущего символа с алфавитом
 				if (it == alphabeth.end())
 					break;
 				else
@@ -67,14 +65,14 @@ public:
 		return resm;
 	}
 
-	set <string> change(set <string> state, char letter) //смена состояний
+	vector <string> change(vector <string> state, char letter) //смена состояний
 	{
-		set <string> buff;
+		vector <string> buff;
 
-		for (set <string>::iterator j = state.begin(); j != state.end(); j++) {
+		for (vector <string>::iterator j = state.begin(); j != state.end(); j++) {
 			for (int i = 0; i < str_in.size(); i++)
 				if (str_in[i] == *j && str_x[i] == letter)
-					buff.insert(str_out[i]);
+					buff.push_back(str_out[i]);
 
 
 
@@ -83,13 +81,15 @@ public:
 		return buff;
 	}
 
-	bool final(set <string> c) //проверка на заключительное состояние
+	bool final(vector <string> c) //проверка на заключительное состояние
 	{
-		set <string>::iterator it;
+		vector <string>::iterator it;
 
-		for (set <string>::iterator i = F.begin(); i != F.end(); i++)
-			if (c.find(*i) != c.end())
+		for (vector <string>::iterator i = F.begin(); i != F.end(); i++) {
+			it = find(c.begin(), c.end(), *i);
+			if (it != c.end())
 				return true;
+		}
 
 		return false;
 
@@ -107,7 +107,7 @@ public:
 			result = maxString(str, k);
 			if (result.first)
 			{
-				cout << "true " << k << ' ' << k + result.second - 1 << ' ';
+				cout << "true " << k << ' ' << k + result.second << ' ';
 				for (int i = k; i < k + result.second; i++)
 					cout << str[i];
 				cout << endl;

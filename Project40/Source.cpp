@@ -12,36 +12,36 @@ int main()
 	vector<string> str_1;
 	vector<char> str_2;
 	vector<string> str_3;
-	int depth, succ;
+	int z, k;
 	string state, str, str2, str3;
 	char letter;
-	set <char> a;
-	set <string> s, ins, outs;
+	vector <char> a;
+	vector <string> s, ins, outs;
 
 
 	ifstream in;
 	in.open(path);
 	if (in.is_open()) // файл успешно открыт
 	{
-		in >> depth;
+		in >> z;
 		getline(in, state);
-		for (int i = 1; i <= depth; i++)
+		for (int i = 1; i <= z; i++)
 		{
 			getline(in, state);
-			s.insert(state);
+			s.push_back(state);
 		}
 
-		in >> depth;
+		in >> z;
 		char letter;
-		for (int i = 0; i < depth; i++)
+		for (int i = 0; i < z; i++)
 		{
 			in >> letter;
-			a.insert(letter);
+			a.push_back(letter);
 		}
 
-		in >> depth;
+		in >> z;
 		getline(in, str);
-		for (int i = 0; i < depth; i++)
+		for (int i = 0; i < z; i++)
 		{
 			str = str2 = str3 = "";
 			int j = 0;
@@ -66,23 +66,28 @@ int main()
 
 		}
 
-		in >> depth;
+		in >> z;
 		getline(in, state);
-		for (int i = 0; i < depth; i++)
+		for (int i = 0; i < z; i++)
 		{
 			getline(in, state);
-			ins.insert(state);
+			ins.push_back(state);
 		}
 
-		in >> depth;
+		in >> z;
 		getline(in, state);
-		for (int i = 0; i < depth; i++)
+		for (int i = 0; i < z; i++)
 		{
 			getline(in, state);
-			outs.insert(state);
+			outs.push_back(state);
 		}
+
 	}
 	in.close();
+
+
+
+
 
 	Tommy_gun automato(s, a, str_1, str_2, str_3, ins, outs);
 
@@ -102,15 +107,15 @@ int main()
 			cout << "¬ведите строку" << endl;
 			cin >> str;
 			cout << "¬ведите позицию ";
-			cin >> succ;
-			automato.print_str(str, succ);
+			cin >> k;
+			automato.print_str(str, k);
 			break;
 		case 2:
 			cout << "¬ведите строку: " << endl;
 			cin >> str;
 			cout << "¬ведите позицию: " << endl;
-			cin >> succ;
-			result = automato.maxString(str, succ);
+			cin >> k;
+			result = automato.maxString(str, k);
 			if (result.first == 0)
 				str = "false";
 			else
@@ -124,5 +129,4 @@ int main()
 		cout << endl;
 	} while (y != 1);
 
-	return 1;
-}
+}   
